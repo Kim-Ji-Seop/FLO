@@ -1,19 +1,36 @@
 package com.example.flo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.flo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding // 뷰 바인딩
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        binding.mainPlayerCl.setOnClickListener {
+//            startActivity(Intent(this,SongActivity::class.java))
+//        }
         initBottomNavigation()
+
+        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString())
+
+        binding.mainPlayerCl.setOnClickListener {
+            val intent = Intent(this, SongActivity::class.java)
+        }
+
+        binding.mainPlayerCl.setOnClickListener {
+            val intent = Intent(this,SongActivity::class.java)
+            intent.putExtra("title", song.title)
+            intent.putExtra("singer",song.singer)
+            startActivity(intent)
+        }
 
     }
 
